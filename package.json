@@ -1,0 +1,30 @@
+{
+  "name": "hardhat_313",
+  "version": "1.0.0",
+  "description": "313 integration with pinata",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/aumerez/313contracts.git"
+  },
+  "author": "Armando Umerez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aumerez/313contracts/issues"
+  },
+  "homepage": "https://github.com/aumerez/313contracts#readme",
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.5",
+    "@nomiclabs/hardhat-etherscan": "^3.0.3",
+    "ethers": "^5.6.0",
+    "hardhat": "^2.9.1",
+    "node-fetch": "^2.6.7"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.5.0",
+    "dotenv": "^16.0.0"
+  }
+}
