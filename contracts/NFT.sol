@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.1;
+pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
@@ -12,7 +12,7 @@ contract NFT is ERC721 {
   /// @dev Base token URI used as a prefix by tokenURI().
   string public baseTokenURI;
 
-  constructor() ERC721("NFTTutorial", "NFT") {
+  constructor() ERC721("313Proyect", "NFT") {
     baseTokenURI = "";
   }
 
