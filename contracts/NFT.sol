@@ -11,7 +11,9 @@ contract NFT is ERC721, PullPayment, Ownable {
 
     // Constants
   uint256 public constant TOTAL_SUPPLY = 7_777;
-  uint256 public constant MINT_PRICE = 0.08 ether;
+  uint256 public constant MINT_PRICE_1 = 0.08 ether;
+  uint256 public constant MINT_PRICE_2 = 0.08 ether;
+  uint256 public constant MINT_PRICE_2 = 0.08 ether;
 
   Counters.Counter private currentTokenId;
 
@@ -25,6 +27,14 @@ contract NFT is ERC721, PullPayment, Ownable {
   function mintTo(address recipient) public payable returns (uint256) {
     uint256 tokenId = currentTokenId.current();
     require(tokenId < TOTAL_SUPPLY, "Max supply reached");
+    if (tokenId >= 0 && tokenId <= 200) {
+            require(msg.value == MINT_PRICE_1, "Transaction value did not equal the mint price");
+        } else if (tokenId > 200 && tokenId < 513) {
+            require(msg.value == MINT_PRICE_2, "Transaction value did not equal the mint price");
+        }
+        else {
+            require(msg.value == MINT_PRICE_3, "Transaction value did not equal the mint price");
+        } 
     require(msg.value == MINT_PRICE, "Transaction value did not equal the mint price");
 
     uint sendBalance = balanceOf(recipient);
