@@ -11,9 +11,9 @@ contract NFT is ERC721, PullPayment, Ownable {
 
     // Constants
   uint256 public constant TOTAL_SUPPLY = 7_777;
-  uint256 public constant MINT_PRICE_1 = 0.08 ether;
-  uint256 public constant MINT_PRICE_2 = 0.08 ether;
-  uint256 public constant MINT_PRICE_2 = 0.08 ether;
+  uint256 public constant MINT_PRICE_1 = 0.00 ether;
+  uint256 public constant MINT_PRICE_2 = 0.0313 ether;
+  uint256 public constant MINT_PRICE_3 = 0.06 ether;
 
   Counters.Counter private currentTokenId;
 
@@ -31,11 +31,9 @@ contract NFT is ERC721, PullPayment, Ownable {
             require(msg.value == MINT_PRICE_1, "Transaction value did not equal the mint price");
         } else if (tokenId > 200 && tokenId < 513) {
             require(msg.value == MINT_PRICE_2, "Transaction value did not equal the mint price");
-        }
-        else {
+        } else {
             require(msg.value == MINT_PRICE_3, "Transaction value did not equal the mint price");
-        } 
-    require(msg.value == MINT_PRICE, "Transaction value did not equal the mint price");
+        }
 
     uint sendBalance = balanceOf(recipient);
     require( sendBalance <= 3, "Exceeded the maximum allowed Minting per wallet");
@@ -52,7 +50,12 @@ contract NFT is ERC721, PullPayment, Ownable {
   }
 
   /// @dev Sets the base token URI prefix.
-  function setBaseTokenURI(string memory _baseTokenURI) public {
+  function setBaseTokenURI(string memory _baseTokenURI) public onlyOwner {
     baseTokenURI = _baseTokenURI;
+  }
+
+  /// @dev Overridden in order to make it an onlyOwner function
+  function withdrawPayments(address payable payee) public override onlyOwner virtual {
+      super.withdrawPayments(payee);
   }
 }
