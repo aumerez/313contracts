@@ -27,16 +27,16 @@ contract NFT is ERC721, PullPayment, Ownable {
   function mintTo(address recipient) public payable returns (uint256) {
     uint256 tokenId = currentTokenId.current();
     require(tokenId < TOTAL_SUPPLY, "Max supply reached");
-    if (tokenId >= 0 && tokenId <= 200) {
+    if (tokenId >= 0 && tokenId < 5) {
             require(msg.value == MINT_PRICE_1, "Transaction value did not equal the mint price");
-        } else if (tokenId > 200 && tokenId < 513) {
+        } else if (tokenId >= 5 && tokenId < 10) {
             require(msg.value == MINT_PRICE_2, "Transaction value did not equal the mint price");
         } else {
             require(msg.value == MINT_PRICE_3, "Transaction value did not equal the mint price");
         }
 
     uint sendBalance = balanceOf(recipient);
-    require( sendBalance <= 3, "Exceeded the maximum allowed Minting per wallet");
+    require( sendBalance <= 10, "Exceeded the maximum allowed Minting per wallet");
 
     currentTokenId.increment();
     uint256 newItemId = currentTokenId.current();
