@@ -24,23 +24,36 @@ contract NFT is ERC721, PullPayment, Ownable {
     baseTokenURI = "";
   }
 
-  function mintTo(address recipient) public payable returns (uint256) {
+  function mintTo(address recipient, uint256 num) public payable returns (uint256) {
     uint256 tokenId = currentTokenId.current();
-    require(tokenId < TOTAL_SUPPLY, "Max supply reached");
+
+    uint256 newItemId = 0;
+
+    if (tokenId <= 200 && tokenId + num > 201) {
+        require(newItemId != 0, "There are not NFTs available at that price");
+    } else if (tokenId <= 513 && tokenId + num > 514) {
+        require(newItemId != 0, "There are not NFTs available at that price");
+    }
+
     if (tokenId >= 0 && tokenId <= 200) {
-            require(msg.value == MINT_PRICE_1, "Transaction value did not equal the mint price");
-        } else if (tokenId > 200 && tokenId < 513) {
-            require(msg.value == MINT_PRICE_2, "Transaction value did not equal the mint price");
-        } else {
-            require(msg.value == MINT_PRICE_3, "Transaction value did not equal the mint price");
-        }
+              require(msg.value == MINT_PRICE_1 * num, "Transaction value did not equal the mint price");
+          } else if (tokenId > 200 && tokenId < 513) {
+              require(msg.value == MINT_PRICE_2 * num, "Transaction value did not equal the mint price");
+          } else {
+              require(msg.value == MINT_PRICE_3 * num, "Transaction value did not equal the mint price");
+          }
 
-    uint sendBalance = balanceOf(recipient);
-    require( sendBalance <= 3, "Exceeded the maximum allowed Minting per wallet");
+    for (uint i = 0; i < num; i++) {
+      require(tokenId < TOTAL_SUPPLY, "Max supply reached");
+      
+      uint sendBalance = balanceOf(recipient);
+      require( sendBalance <= 3, "Exceeded the maximum allowed Minting per wallet");
 
-    currentTokenId.increment();
-    uint256 newItemId = currentTokenId.current();
-    _safeMint(recipient, newItemId);
+      currentTokenId.increment();
+      newItemId = currentTokenId.current();
+      _safeMint(recipient, newItemId);    
+    }
+
     return newItemId;
   }
 
