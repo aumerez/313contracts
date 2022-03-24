@@ -62,6 +62,11 @@ contract NFT is ERC721, PullPayment, Ownable {
     return baseTokenURI;
   }
 
+  /// @dev Returns an current token ID
+  function _currentId() internal view virtual returns (uint256) {
+    return currentTokenId.current();
+  }
+
   /// @dev Sets the base token URI prefix.
   function setBaseTokenURI(string memory _baseTokenURI) public onlyOwner {
     baseTokenURI = _baseTokenURI;
