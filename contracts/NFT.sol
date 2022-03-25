@@ -5,6 +5,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/security/PullPayment.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract NFT is ERC721, PullPayment, Ownable {
   using Counters for Counters.Counter;
@@ -19,6 +20,7 @@ contract NFT is ERC721, PullPayment, Ownable {
 
   /// @dev Base token URI used as a prefix by tokenURI().
   string public baseTokenURI;
+  string private errorMessage  = "There are not NFTs available at that price, you can only buy ";
 
   constructor() ERC721("313Proyect", "NFT") {
     baseTokenURI = "";
@@ -30,9 +32,9 @@ contract NFT is ERC721, PullPayment, Ownable {
     uint256 newItemId = 0;
 
     if (tokenId <= 5 && tokenId + num > 6) {
-        require(newItemId != 0, "There are not NFTs available at that price");
+        require(newItemId != 0, string(abi.encodePacked(errorMessage, Strings.toString(5-num), " NFTs")));
     } else if (tokenId <= 10 && tokenId + num > 11) {
-        require(newItemId != 0, "There are not NFTs available at that price");
+        require(newItemId != 0, string(abi.encodePacked(errorMessage, Strings.toString(10-num), " NFTs")));
     }
 
     if (tokenId >= 0 && tokenId <= 5) {
