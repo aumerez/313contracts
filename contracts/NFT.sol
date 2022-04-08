@@ -32,17 +32,17 @@ contract NFT is ERC721, PullPayment, Ownable {
     uint256 newItemId = 0;
 
     if (tokenId <= 5 && tokenId + num > 6) {
-        require(newItemId != 0, string(abi.encodePacked(errorMessage, Strings.toString(5-num), " NFTs")));
+        require(newItemId != 0, string(abi.encodePacked(errorMessage, Strings.toString(5-tokenId), " NFTs TokenId is ", Strings.toString(tokenId))));
     } else if (tokenId <= 10 && tokenId + num > 11) {
-        require(newItemId != 0, string(abi.encodePacked(errorMessage, Strings.toString(10-num), " NFTs")));
+        require(newItemId != 0, string(abi.encodePacked(errorMessage, Strings.toString(10-tokenId), " NFTs TokenId is ", Strings.toString(tokenId))));
     }
 
     if (tokenId >= 0 && tokenId <= 5) {
-              require(msg.value == MINT_PRICE_1 * num, "Transaction value did not equal the mint price");
+              require(msg.value == MINT_PRICE_1 * num, "Transaction value did not equal the mint price 0.00");
           } else if (tokenId > 5 && tokenId < 10) {
-              require(msg.value == MINT_PRICE_2 * num, "Transaction value did not equal the mint price");
+              require(msg.value == MINT_PRICE_2 * num, "Transaction value did not equal the mint price 0.0313");
           } else {
-              require(msg.value == MINT_PRICE_3 * num, "Transaction value did not equal the mint price");
+              require(msg.value == MINT_PRICE_3 * num, "Transaction value did not equal the mint price 0.06");
           }
 
     for (uint i = 0; i < num; i++) {
@@ -62,11 +62,6 @@ contract NFT is ERC721, PullPayment, Ownable {
   /// @dev Returns an URI for a given token ID
   function _baseURI() internal view virtual override returns (string memory) {
     return baseTokenURI;
-  }
-
-  /// @dev Returns an current token ID
-  function _currentId() internal view virtual returns (uint256) {
-    return currentTokenId.current();
   }
 
   /// @dev Sets the base token URI prefix.
